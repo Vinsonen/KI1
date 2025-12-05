@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python知识点思维导图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .mindmap-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .mindmap {
+            flex: 1;
+            min-width: 300px;
+            height: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 12px 25px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .download-btn {
+            background: #2ecc71;
+        }
+        .download-btn:hover {
+            background: #27ae60;
+        }
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .summary h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .summary-section {
+            margin-bottom: 25px;
+        }
+        .summary-section h3 {
+            color: #3498db;
+            margin: 15px 0 10px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .mindmap-container {
+                flex-direction: column;
+            }
+            .mindmap {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Python知识点思维导图</h1>
+            <p class="subtitle">基于运算符、选择结构和循环结构的完整总结</p>
+        </header>
+        
+        <div class="controls">
+            <button onclick="switchMindmap(0)">运算符</button>
+            <button onclick="switchMindmap(1)">选择结构</button>
+            <button onclick="switchMindmap(2)">循环结构</button>
+            <button class="download-btn" onclick="downloadMindmap()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M14 10v4H2v-4H0v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4h-2z"/>
+                    <path d="M8 0l5 5h-3v6H6V5H3l5-5z"/>
+                </svg>
+                下载思维导图
+            </button>
+        </div>
+        
+        <div class="content">
+            <div class="mindmap-container">
+                <div id="mindmap1" class="mindmap"></div>
+                <div id="mindmap2" class="mindmap" style="display:none;"></div>
+                <div id="mindmap3" class="mindmap" style="display:none;"></div>
+            </div>
+            
+            <div class="summary">
+                <h2>Python知识点总结</h2>
+                
+                <div class="summary-section">
+                    <h3>1. 运算符</h3>
+                    <p>Python提供了丰富的运算符用于数据处理和逻辑判断：</p>
+                    
+                    <h4>算术运算符</h4>
+                    <p>用于数学计算：+（加）、-（减）、*（乘）、/（除）、//（整除，向下取整）、%（取余）、**（幂运算）</p>
+                    <div class="code-block"># 示例<br>print(9 % 2)  # 输出 1<br>print(2**3)   # 输出 8</div>
+                    
+                    <h4>赋值运算符</h4>
+                    <p>用于变量赋值：=、+=、-=、*=、/=、//=、%=</p>
+                    <div class="code-block"># 链式赋值和系列解包赋值<br>a = b = c = 10  # 链式赋值<br>a, b, c = 10, 20, 30  # 系列解包赋值</div>
+                    
+                    <h4>比较运算符</h4>
+                    <p>用于比较值：&lt;、&gt;、&lt;=、&gt;=、!=、==（值比较）、is、is not（身份比较）</p>
+                    
+                    <h4>布尔运算符</h4>
+                    <p>用于逻辑运算：and、or、not、in（成员检测）</p>
+                    
+                    <h4>位运算符</h4>
+                    <p>用于二进制操作：&（与）、|（或）、^（异或）、~（取反）、&lt;&lt;（左移）、&gt;&gt;（右移）</p>
+                </div>
+                
+                <div class="summary-section">
+                    <h3>2. 选择结构（条件判断）</h3>
+                    <p>根据条件执行不同的代码块：</p>
+                    
+                    <h4>单分支结构</h4>
+                    <div class="code-block">if 条件表达式:<br>&nbsp;&nbsp;&nbsp;&nbsp;条件执行体  # 条件成立时执行</div>
+                    
+                    <h4>双分支结构</h4>
+                    <div class="code-block">if 条件表达式:<br>&nbsp;&nbsp;&nbsp;&nbsp;条件执行体1<br>else:<br>&nbsp;&nbsp;&nbsp;&nbsp;条件执行体2  # 条件不成立时执行</div>
+                    
+                    <h4>多分支结构</h4>
+                    <div class="code-block">if 条件表达式1:<br>&nbsp;&nbsp;&nbsp;&nbsp;执行体1<br>elif 条件表达式2:<br>&nbsp;&nbsp;&nbsp;&nbsp;执行体2<br>else:<br>&nbsp;&nbsp;&nbsp;&nbsp;执行体3</div>
+                    
+                    <h4>嵌套if结构</h4>
+                    <div class="code-block">if 外层条件:<br>&nbsp;&nbsp;&nbsp;&nbsp;if 内层条件:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内层执行体<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内层其他执行体<br>else:<br>&nbsp;&nbsp;&nbsp;&nbsp;外层其他执行体</div>
+                    
+                    <h4>Pass语句</h4>
+                    <p>占位符，保证语法完整性，可用于if条件执行体、for-in循环体和函数体</p>
+                </div>
+                
+                <div class="summary-section">
+                    <h3>3. 循环结构</h3>
+                    <p>用于重复执行代码块：</p>
+                    
+                    <h4>range()函数</h4>
+                    <p>生成整数序列：</p>
+                    <div class="code-block">range(10)        # [0, 1, 2, ..., 9]<br>range(1, 10)     # [1, 2, ..., 9]<br>range(1, 10, 2)  # [1, 3, 5, 7, 9]（步长为2）</div>
+                    
+                    <h4>while循环</h4>
+                    <div class="code-block"># 四步循环法示例<br>i = 1  # ①初始化变量<br>sum = 0<br>while i <= 100:  # ②条件判断<br>&nbsp;&nbsp;&nbsp;&nbsp;sum += i     # ③循环体<br>&nbsp;&nbsp;&nbsp;&nbsp;i += 1       # ④更新变量</div>
+                    
+                    <h4>for-in循环</h4>
+                    <p>遍历可迭代对象（字符串、列表、range等）：</p>
+                    <div class="code-block">for item in "Python":<br>&nbsp;&nbsp;&nbsp;&nbsp;print(item)  # 依次输出 P、y、t、h、o、n</div>
+                    
+                    <h4>循环控制语句</h4>
+                    <p>break：终止整个循环</p>
+                    <p>continue：跳过当前轮次，进入下一次循环</p>
+                    
+                    <h4>else语句</h4>
+                    <p>当循环正常结束（未遇到break）时执行</p>
+                    
+                    <h4>嵌套循环</h4>
+                    <p>循环中嵌套另一个完整循环结构</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Python知识点思维导图 | 基于三张思维导图内容整理</p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化三个思维导图
+        let mindmap1 = echarts.init(document.getElementById('mindmap1'));
+        let mindmap2 = echarts.init(document.getElementById('mindmap2'));
+        let mindmap3 = echarts.init(document.getElementById('mindmap3'));
+        
+        // 运算符思维导图数据
+        const operatorData = {
+            name: "Python运算符",
+            children: [
+                {
+                    name: "算术运算符",
+                    children: [
+                        {name: "标准运算符", children: [
+                            {name: "加 +"},
+                            {name: "减 -"},
+                            {name: "乘 *"},
+                            {name: "除 /"},
+                            {name: "整除 // (向下取整)"}
+                        ]},
+                        {name: "取余运算符 % (9%2=1)"},
+                        {name: "幂运算符 ** (2**3=8)"}
+                    ]
+                },
+                {
+                    name: "赋值运算符",
+                    children: [
+                        {name: "= 基本赋值"},
+                        {name: "链式赋值 (a=b=c=10)"},
+                        {name: "系列解包赋值 (a,b,c=10,20,30)"},
+                        {name: "参数赋值 (+=, -=, *=, /=, //=, %=)"}
+                    ]
+                },
+                {
+                    name: "比较运算符",
+                    children: [
+                        {name: "<, >, <=, >=, !="},
+                        {name: "== 对象值比较"},
+                        {name: "is, is not 对象id比较"}
+                    ]
+                },
+                {
+                    name: "布尔运算符",
+                    children: [
+                        {name: "and (与)"},
+                        {name: "or (或)"},
+                        {name: "not (非)"},
+                        {name: "in (成员检测)"}
+                    ]
+                },
+                {
+                    name: "位运算符",
+                    children: [
+                        {name: "& (与)"},
+                        {name: "| (或)"},
+                        {name: "^ (异或)"},
+                        {name: "~ (取反)"},
+                        {name: "<< (左移)"},
+                        {name: ">> (右移)"}
+                    ]
+                }
+            ]
+        };
+        
+        // 选择结构思维导图数据
+        const selectionData = {
+            name: "选择结构",
+            children: [
+                {
+                    name: "单分支结构",
+                    children: [
+                        {name: "中文语义: 如果...就..."},
+                        {name: "语法: if 条件表达式: 条件执行体"}
+                    ]
+                },
+                {
+                    name: "双分支结构",
+                    children: [
+                        {name: "中文语义: 如果...不满足...就"},
+                        {name: "语法: if 条件表达式: 条件执行体1 else: 条件执行体2"}
+                    ]
+                },
+                {
+                    name: "多分支结构",
+                    children: [
+                        {name: "中文语义: ...是...?不是...是...?不是..."},
+                        {name: "语法: if-elif-else结构"},
+                        {name: "示例: 成绩判断 (A/B/C/D/E)"}
+                    ]
+                },
+                {
+                    name: "嵌套if结构",
+                    children: [
+                        {name: "外层条件判断"},
+                        {name: "内层条件判断"},
+                        {name: "示例: 会员购物折扣"}
+                    ]
+                },
+                {
+                    name: "Pass语句",
+                    children: [
+                        {name: "占位符，保证语法完整性"},
+                        {name: "使用场景: if条件执行体, for-in循环体, 函数体"}
+                    ]
+                }
+            ]
+        };
+        
+        // 循环结构思维导图数据
+        const loopData = {
+            name: "循环结构",
+            children: [
+                {
+                    name: "range()函数",
+                    children: [
+                        {name: "range(stop) - [0,stop)步长1"},
+                        {name: "range(start,stop) - [start,stop)步长1"},
+                        {name: "range(start,stop,step) - 自定义步长"}
+                    ]
+                },
+                {
+                    name: "while循环",
+                    children: [
+                        {name: "语法: while 条件表达式: 循环体"},
+                        {name: "四步循环法: 初始化变量→条件判断→循环体→改变变量"}
+                    ]
+                },
+                {
+                    name: "for-in循环",
+                    children: [
+                        {name: "语法: for item in 可迭代对象:"},
+                        {name: "遍历字符串、序列等可迭代对象"},
+                        {name: "示例: 计算1~10的偶数和"}
+                    ]
+                },
+                {
+                    name: "流程控制语句",
+                    children: [
+                        {name: "break - 终止整个循环"},
+                        {name: "continue - 跳过当前循环进入下一次"}
+                    ]
+                },
+                {
+                    name: "else语句",
+                    children: [
+                        {name: "循环正常结束时执行"},
+                        {name: "与if/while/for配合使用"}
+                    ]
+                },
+                {
+                    name: "嵌套循环",
+                    children: [
+                        {name: "循环中嵌套另一个完整循环"},
+                        {name: "内层循环作为外层循环的循环体"}
+                    ]
+                }
+            ]
+        };
+        
+        // 思维导图配置选项
+        const option = {
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series: [
+                {
+                    type: 'tree',
+                    data: [],
+                    top: '1%',
+                    left: '7%',
+                    bottom: '1%',
+                    right: '20%',
+                    symbolSize: 7,
+                    label: {
+                        position: 'left',
+                        verticalAlign: 'middle',
+                        align: 'right',
+                        fontSize: 14
+                    },
+                    leaves: {
+                        label: {
+                            position: 'right',
+                            verticalAlign: 'middle',
+                            align: 'left'
+                        }
+                    },
+                    emphasis: {
+                        focus: 'descendant'
+                    },
+                    expandAndCollapse: true,
+                    animationDuration: 550,
+                    animationDurationUpdate: 750
+                }
+            ]
+        };
+        
+        // 设置思维导图数据
+        function setMindmapData(chart, data) {
+            const optionCopy = JSON.parse(JSON.stringify(option));
+            optionCopy.series[0].data = [data];
+            chart.setOption(optionCopy);
+        }
+        
+        // 初始化思维导图
+        setMindmapData(mindmap1, operatorData);
+        setMindmapData(mindmap2, selectionData);
+        setMindmapData(mindmap3, loopData);
+        
+        // 切换思维导图显示
+        function switchMindmap(index) {
+            document.getElementById('mindmap1').style.display = index === 0 ? 'block' : 'none';
+            document.getElementById('mindmap2').style.display = index === 1 ? 'block' : 'none';
+            document.getElementById('mindmap3').style.display = index === 2 ? 'block' : 'none';
+            
+            // 调整图表大小
+            setTimeout(() => {
+                if (index === 0) mindmap1.resize();
+                if (index === 1) mindmap2.resize();
+                if (index === 2) mindmap3.resize();
+            }, 100);
+        }
+        
+        // 下载思维导图功能
+        function downloadMindmap() {
+            alert("思维导图下载功能已触发！在实际应用中，这里会生成.xmind文件供下载。");
+            // 实际应用中，这里会调用后端API生成.xmind文件
+        }
+        
+        // 窗口大小变化时调整图表
+        window.addEventListener('resize', function() {
+            mindmap1.resize();
+            mindmap2.resize();
+            mindmap3.resize();
+        });
+    </script>
+</body>
+</html>
